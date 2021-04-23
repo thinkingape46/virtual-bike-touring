@@ -5,8 +5,27 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Virtual Bike Touring</title>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    <script src="./assets/scripts/app.js"></script>
+    <div class="section">
+      <p class="title">Heart Rate</p>
+      <div class="buttons">
+        <div class="button" id="request-hr">Request Devices</div>
+        <div class="button" id="get-hr">Get Devices</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <p class="title">Location</p>
+      <p class="text" id="location">Request</p>
+    </div>
+
+    <script src="/bundled.js"></script>
   </body>
 </html>

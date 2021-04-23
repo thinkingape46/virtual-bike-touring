@@ -11,6 +11,7 @@ if (currentTask === "dev") {
     filename: "bundled.js",
     path: path.resolve(__dirname, "app"),
   };
+  config.mode = "development";
   config.devServer = {
     port: 3501,
     contentBase: path.resolve(__dirname, "app"),

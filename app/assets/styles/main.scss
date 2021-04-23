@@ -1,0 +1,35 @@
+$primary-background-color: #333;
+$primary-text-color: rgb(243, 243, 243);
+
+body {
+  background-color: $primary-background-color;
+  margin: 0;
+  font-family: "Roboto", sans-serif;
+  color: $primary-text-color;
+  font-weight: 100;
+}
+
+.section {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  .title {
+    font-weight: 300;
+  }
+  .text {
+    margin: 5px;
+  }
+  .buttons {
+    display: flex;
+    width: 90%;
+    justify-content: space-around;
+    .button {
+      cursor: pointer;
+      user-select: none;
+      padding: 15px;
+      box-shadow: 3px 3px 10px #151515, -3px -3px 10px #666666;
+    }
+  }
+}
