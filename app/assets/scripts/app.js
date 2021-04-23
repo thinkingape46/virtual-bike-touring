@@ -1,15 +1,12 @@
-import React, { useState } from "react";
-import ReactDOM from "react-dom";
-import "./styles/main.scss";
+import "../styles/main.scss";
 
-function App() {
-  return (
-    <>
-      <button onClick={onRequestBluetoothDeviceButtonClick}>Request</button>
-      <button onClick={onGetBluetoothDevicesButtonClick}>Get</button>
-    </>
-  );
-}
+// script imports
+import Location from "./modules/Location";
+
+new Location();
+
+const requestHR = document.getElementById("request-hr");
+const getHR = document.getElementById("get-hr");
 
 async function onGetBluetoothDevicesButtonClick() {
   try {
@@ -49,8 +46,6 @@ async function onRequestBluetoothDeviceButtonClick() {
     console.log(e);
   }
 }
-
-ReactDOM.render(<App />, document.getElementById("app"));
 
 if (module.hot) {
   module.hot.accept();
