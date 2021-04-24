@@ -2,11 +2,18 @@ class SpeedSensor {
   constructor() {
     this.requestSpeedDevice = document.getElementById("request-speed");
     this.getDeviceDevice = document.getElementById("get-speed");
+    this.speedSensorReading = document.getElementById("speed-sensor");
     this.events();
   }
 
   events() {
-    this.requestSpeedDevice.addEventListener("click", this.requestDevice);
+    this.requestSpeedDevice.addEventListener("click", () =>
+      this.requestDevice()
+    );
+  }
+
+  renderReading(reading) {
+    this.speedSensorReading.textContent = reading;
   }
 
   requestDevice() {
@@ -18,11 +25,16 @@ class SpeedSensor {
             .getPrimaryService("cycling_speed_and_cadence")
             .then((primaryService) => {
               primaryService
-                .getCharacteristic("00002a55-0000-1000-8000-00805f9b34fb")
+                .getCharacteristic("00002a5b-0000-1000-8000-00805f9b34fb")
                 .then((characteristic) => {
-                  console.log(characteristic);
-                  characteristic.startNotifications().then((notification) => {
-                    console.log(notification);
+                  characteristic.startNotifications().then((reading) => {
+                    console.log(reading);
+                    const initial = reading.value.getInt16();
+                    setInterval(() => {
+                      this.speedSensorReading.textContent = `${
+                        reading.value.getInt16() - initial
+                      } rotations`;
+                    }, 1000);
                   });
                 });
             });
