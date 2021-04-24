@@ -2,8 +2,10 @@ import "../styles/main.scss";
 
 // script imports
 import Location from "./modules/Location";
+import SpeedSensor from "./modules/SpeedSensor";
 
 new Location();
+new SpeedSensor();
 
 const requestHR = document.getElementById("request-hr");
 const getHR = document.getElementById("get-hr");
