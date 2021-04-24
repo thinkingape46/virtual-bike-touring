@@ -13,6 +13,9 @@ if (currentTask === "dev") {
   };
   config.mode = "development";
   config.devServer = {
+    before: (app, server) => {
+      server._watch("./app/**/*.html");
+    },
     port: 3501,
     contentBase: path.resolve(__dirname, "app"),
     hot: true,
