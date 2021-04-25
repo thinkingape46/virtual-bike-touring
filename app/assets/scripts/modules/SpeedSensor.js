@@ -2,7 +2,8 @@ class SpeedSensor {
   constructor() {
     this.requestSpeedDevice = document.getElementById("request-speed");
     this.getDeviceDevice = document.getElementById("get-speed");
-    this.speedSensorReading = document.getElementById("speed-sensor");
+    this.totalDistance = document.getElementById("distance");
+    this.currentSpeed = document.getElementById("current-speed");
     this.events();
   }
 
@@ -12,11 +13,36 @@ class SpeedSensor {
     );
   }
 
-  renderReading(rotations) {
-    const circumference = 2104; //should be in mm
-    const distancekm = ((rotations * circumference) / 1000000).toFixed(3);
-    this.speedSensorReading.textContent = `${distancekm} km`;
-    console.log(rotations, distancekm);
+  variables() {
+    this.previousReadTime = Date.now();
+    this.previousDistance = 0;
+    this.speed = 0;
+    this.distanceArray = [];
+    this.timeStampArray = [];
+  }
+
+  renderReading(rotations, timeStamp) {
+    const circumference = 0.002104; //should be in km
+    const distancekm = rotations * circumference;
+    this.distanceArray.unshift(distancekm);
+    this.timeStampArray.unshift(timeStamp);
+
+    if (this.timeStampArray.length >= 5) {
+      this.speed =
+        (this.distanceArray[0] - this.distanceArray[4]) /
+        ((this.timeStampArray[0] - this.timeStampArray[4]) / 3600000);
+
+      this.previousDistance = distancekm;
+      this.previousReadTime = timeStamp;
+      this.distanceArray.length = 5;
+      this.timeStampArray.length = 5;
+      console.log(this.speed);
+    }
+
+    console.log(this.timeStampArray);
+
+    this.totalDistance.textContent = `${distancekm.toFixed(3)} km`;
+    this.currentSpeed.textContent = `${this.speed.toFixed(2)} km/hr`;
   }
 
   requestDevice() {
@@ -35,7 +61,11 @@ class SpeedSensor {
                     const initial = reading.value.getUint16();
                     let readingsConcat = 0;
                     let previousReading = reading.value.getUint16();
+
+                    this.variables();
+
                     setInterval(() => {
+                      const timeStamp = Date.now();
                       const rotations = reading.value.getUint16();
                       if (rotations < previousReading) {
                         previousReading = rotations;
@@ -44,7 +74,7 @@ class SpeedSensor {
                       } else {
                         readingsConcat += rotations - previousReading;
                         previousReading = rotations;
-                        this.renderReading(readingsConcat);
+                        this.renderReading(readingsConcat, timeStamp);
                       }
                     }, 1000);
                   });

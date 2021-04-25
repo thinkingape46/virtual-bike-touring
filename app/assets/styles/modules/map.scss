@@ -1,0 +1,12 @@
+#map-container {
+  width: 100vw;
+  display: flex;
+  height: 200px;
+  justify-content: center;
+  align-items: center;
+
+  #map {
+    width: 90%;
+    height: 100%;
+  }
+}
