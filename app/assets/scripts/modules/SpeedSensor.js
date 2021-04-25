@@ -12,8 +12,11 @@ class SpeedSensor {
     );
   }
 
-  renderReading(reading) {
-    this.speedSensorReading.textContent = reading;
+  renderReading(rotations) {
+    const circumference = 2104; //should be in mm
+    const distancekm = ((rotations * circumference) / 1000000).toFixed(3);
+    this.speedSensorReading.textContent = `${distancekm} km`;
+    console.log(rotations, distancekm);
   }
 
   requestDevice() {
@@ -29,11 +32,20 @@ class SpeedSensor {
                 .then((characteristic) => {
                   characteristic.startNotifications().then((reading) => {
                     console.log(reading);
-                    const initial = reading.value.getInt16();
+                    const initial = reading.value.getUint16();
+                    let readingsConcat = 0;
+                    let previousReading = reading.value.getUint16();
                     setInterval(() => {
-                      this.speedSensorReading.textContent = `${
-                        reading.value.getInt16() - initial
-                      } rotations`;
+                      const rotations = reading.value.getUint16();
+                      if (rotations < previousReading) {
+                        previousReading = rotations;
+                        readingsConcat += rotations - previousReading;
+                        this.renderReading(readingsConcat);
+                      } else {
+                        readingsConcat += rotations - previousReading;
+                        previousReading = rotations;
+                        this.renderReading(readingsConcat);
+                      }
                     }, 1000);
                   });
                 });
