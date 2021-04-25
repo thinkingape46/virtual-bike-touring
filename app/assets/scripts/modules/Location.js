@@ -16,9 +16,9 @@ class Location {
   }
 
   success(e) {
-    this.locationId.textContent = `latitude: ${e.coords.latitude.toFixed(
-      3
-    )} longitude: ${e.coords.longitude.toFixed(3)}`;
+    this.locationId.textContent = `Lat: ${e.coords.latitude.toFixed(
+      5
+    )} Long: ${e.coords.longitude.toFixed(5)}`;
   }
 
   failure(e) {
