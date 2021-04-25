@@ -3,9 +3,11 @@ import "../styles/main.scss";
 // script imports
 import Location from "./modules/Location";
 import SpeedSensor from "./modules/SpeedSensor";
+import Map from "./modules/Map";
 
 new Location();
 new SpeedSensor();
+new Map();
 
 const requestHR = document.getElementById("request-hr");
 const getHR = document.getElementById("get-hr");
