@@ -4,10 +4,12 @@ import "../styles/main.scss";
 import Location from "./modules/Location";
 import SpeedSensor from "./modules/SpeedSensor";
 import Map from "./modules/Map";
+import MapProjection from "./modules/MapProjection";
 
 new Location();
 new SpeedSensor();
 new Map();
+new MapProjection();
 
 const requestHR = document.getElementById("request-hr");
 const getHR = document.getElementById("get-hr");

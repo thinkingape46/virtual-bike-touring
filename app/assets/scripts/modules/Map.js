@@ -35,7 +35,7 @@ class Map {
     this.addCircle().addTo(this.map);
   }
 
-  addNewCircle() {
+  moveCircle() {
     let paths = document.getElementsByClassName("leaflet-interactive");
     paths.forEach((p) => p.remove());
     this.map.setView([this.lat, this.long], 13);
@@ -43,11 +43,14 @@ class Map {
   }
 
   events() {
+    this.mapContainer.addEventListener("click", (e) => {
+      console.log(e);
+    });
     window.addEventListener("keyup", (e) => {
       if (e.key === "ArrowUp") {
         this.lat += 0.001;
         console.log(this.lat);
-        this.addNewCircle();
+        this.moveCircle();
       }
     });
   }
