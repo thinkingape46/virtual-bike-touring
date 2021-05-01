@@ -11,7 +11,7 @@ if (currentTask === "dev") {
     filename: "bundled.js",
     path: path.resolve(__dirname, "app"),
   };
-  config.mode = "development";
+  (config.devtool = "inline-source-map"), (config.mode = "development");
   config.devServer = {
     before: (app, server) => {
       server._watch("./app/**/*.html");
@@ -27,21 +27,14 @@ if (currentTask === "dev") {
         use: ["style-loader", "css-loader", "sass-loader"],
       },
       {
-        test: /\.js$/,
-        exclude: /(node_modules|bower_components)/,
-        use: {
-          loader: "babel-loader",
-          options: {
-            presets: [
-              [
-                "@babel/preset-env",
-                { useBuiltIns: "usage", corejs: 3, targets: "defaults" },
-              ],
-            ],
-          },
-        },
+        test: /\.tsx?$/,
+        use: "ts-loader",
+        exclude: /node_modules/,
       },
     ],
+  };
+  config.resolve = {
+    extensions: [".tsx", ".ts", ".js"],
   };
 }
 

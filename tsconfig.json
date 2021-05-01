@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "outDir": "./app/",
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "module": "esNext",
+    "target": "es5",
+    "jsx": "react",
+    "allowJs": true,
+    "moduleResolution": "node"
+  }
+}
