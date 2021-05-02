@@ -5,6 +5,7 @@
     "noImplicitAny": true,
     "module": "esNext",
     "target": "es5",
+    "lib": ["DOM", "DOM.Iterable"],
     "jsx": "react",
     "allowJs": true,
     "moduleResolution": "node"

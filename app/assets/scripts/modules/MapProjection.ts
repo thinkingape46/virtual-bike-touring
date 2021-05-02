@@ -1,22 +1,28 @@
 class MapProjection {
+  projectionDiv: HTMLDivElement;
+
   constructor() {
-    this.projectionDiv = document.getElementById("mercator");
+    this.projectionDiv = <HTMLDivElement>document.getElementById("mercator");
     this.events();
   }
 
-  getLat(offsetX, clientWidth) {
-    return (offsetX / clientWidth - 0.5) * 360;
+  getLat(positionX: number, mapWidth: number) {
+    return (positionX / mapWidth - 0.5) * 360;
+  }
+
+  getLong(positionY: number, mapHeight: number) {
+    return ((mapHeight / 2 - positionY) / (mapHeight / 2)) * 90;
   }
 
   events() {
-    this.projectionDiv.addEventListener("click", (e) => {
-      console.log(this.getLat(e.offsetX, e.target.clientWidth));
+    this.projectionDiv.addEventListener("click", (event: any) => {
+      const positionX = +event.offsetX;
+      const positionY = +event.offsetY;
+      const mapWidth = +event.target.clientWidth;
+      const mapHeight = +event.target.clientHeight;
 
-      console.log(
-        ((e.target.clientHeight / 2 - e.offsetY) /
-          (e.target.clientHeight / 2)) *
-          90
-      );
+      console.log(this.getLat(positionX, mapWidth));
+      console.log(this.getLong(positionY, mapWidth));
     });
   }
 }
