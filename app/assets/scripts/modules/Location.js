@@ -1,3 +1,6 @@
+import AddToMap from "./AddToMap";
+const addToMap = new AddToMap();
+
 class Location {
   constructor() {
     this.locationId = document.getElementById("location");
@@ -16,9 +19,11 @@ class Location {
   }
 
   success(e) {
-    this.locationId.textContent = `Lat: ${e.coords.latitude.toFixed(
-      5
-    )} Long: ${e.coords.longitude.toFixed(5)}`;
+    const latitude = e.coords.latitude.toFixed(5);
+    const longitude = e.coords.longitude.toFixed(5);
+    this.locationId.textContent = `Lat: ${latitude} Long: ${longitude}`;
+
+    addToMap.addCurrentLocationOnMap(latitude, longitude);
   }
 
   failure(e) {
